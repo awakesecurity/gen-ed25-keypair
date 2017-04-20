@@ -1,0 +1,97 @@
+name:                gen-ed25-keypair
+version:             1.0.0
+synopsis:            Ed25519 keypair generator, message signing and verification tools
+homepage:            https://github.com/awakenetworks/gen-ed25-keypair#readme
+license:             Apache-2.0
+license-file:        LICENSE
+author:              Awake Networks
+maintainer:          opensource@awakenetworks.com
+copyright:           2017 Awake Networks
+build-type:          Simple
+extra-source-files:  README.md
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  ghc-options:         -Wall -Werror
+  exposed-modules:     Gen.Ed25519.KeyPair
+
+  build-depends:
+                base                  >= 4.7   && < 5
+              , bytestring            >= 0.10
+              , cryptonite            >= 0.21
+              , memory                >= 0.14
+              , mtl                   >= 2.2
+              , optparse-applicative  >= 0.13
+              , optparse-generic      >= 1.1.5
+              , text                  >= 1.2
+
+  default-language:    Haskell2010
+
+executable gen-ed25-keypair
+  hs-source-dirs:      app
+  main-is:             GenKeyPair.hs
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -Wall
+  build-depends:
+                base                  >= 4.7   && < 5
+              , gen-ed25-keypair
+              , cryptonite
+              , mtl
+              , system-filepath
+              , optparse-generic
+              , text
+
+  default-language:    Haskell2010
+
+executable sign-ed25
+  hs-source-dirs:      app
+  main-is:             SignKeyPair.hs
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -Wall
+  build-depends:
+                base
+              , bytestring
+              , cryptonite
+              , mtl
+              , optparse-generic
+              , system-filepath
+              , text
+              , gen-ed25-keypair
+
+  default-language:    Haskell2010
+
+executable verify-ed25
+  hs-source-dirs:      app
+  main-is:             VerifySig.hs
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -Wall
+  build-depends:
+                base
+              , bytestring
+              , cryptonite
+              , optparse-generic
+              , text
+              , gen-ed25-keypair
+
+  default-language:    Haskell2010
+
+test-suite gen-ed25-keypair-test
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             Spec.hs
+  build-depends:
+                base
+              , bytestring
+              , cryptonite
+              , memory
+              , optparse-generic
+              , tasty
+              , tasty-hunit
+              , tasty-quickcheck
+              , text
+              , gen-ed25-keypair
+
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -Wall -Werror
+  default-language:    Haskell2010
+
+source-repository head
+  type:     git
+  location: https://github.com/awakenetworks/gen-ed25-keypair
