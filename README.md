@@ -1,8 +1,7 @@
 # Welcome!
 
 This is a small Haskell CLI utility and library for generating an Ed25519
-keypair, signing and verifying messages with an Ed25519 keypair, and Aeson
-encoding / decoding instances for the keypair and signature types.
+keypair, signing and verifying messages with an Ed25519 keypair.
 
 ## Example Usage
 
@@ -20,7 +19,7 @@ Available options:
                            key will be written to the current working dir
 ```
 
-The keypair is generated using `getRandomBytes` from [Cryptonite.Random](https://hackage.haskell.org/package/cryptonite-0.22/docs/Crypto-Random.html) and the keys are base64 encoded. Providing the `--json` flag prints the generated secret key and public key, base64 encoded, in a JSON object. Without the `--json` flag the secret key is printed, followed by a newline and the public key, both base64 encoded.
+The keypair is generated using `getRandomBytes` from [Cryptonite.Random](https://hackage.haskell.org/package/cryptonite-0.22/docs/Crypto-Random.html) and the keys are base64 encoded.
 
 Another convenience utility is also provided for signing messages with a generated keypair and verifying message signatures:
 
