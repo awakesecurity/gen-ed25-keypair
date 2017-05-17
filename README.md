@@ -9,13 +9,13 @@ keypair, signing and verifying messages with an Ed25519 keypair.
 $ gen-ed25-keypair --help
 Generate a base64 encoded, Ed25519 keypair
 
-Usage: gen-ed25-keypair [--secretKey STRING] [--publicKey STRING]
+Usage: gen-ed25-keypair [--secretKey FILEPATH] [--publicKey FILEPATH]
 
 Available options:
   -h,--help                Show this help text
-  --secretKey STRING       Filepath to write the secret key to, if not provided,
+  --secretKey FILEPATH     Filepath to write the secret key to, if not provided,
                            key will be written to the current working dir
-  --publicKey STRING       Filepath to write the public key to, if not provided,
+  --publicKey FILEPATH     Filepath to write the public key to, if not provided,
                            key will be written to the current working dir
 ```
 
@@ -27,12 +27,12 @@ Another convenience utility is also provided for signing messages with a generat
 $ sign-ed25 --help
 Sign a message with a Ed25519 keypair
 
-Usage: sign-ed25 --secretKey STRING --publicKey STRING --msg TEXT
+Usage: sign-ed25 --secretKey FILEPATH --publicKey FILEPATH --msg TEXT
 
 Available options:
   -h,--help                Show this help text
-  --secretKey STRING       Path to the secret key
-  --publicKey STRING       Path to the public key
+  --secretKey FILEPATH     Path to the secret key
+  --publicKey FILEPATH     Path to the public key
   --msg TEXT               Message to sign
 ```
 
