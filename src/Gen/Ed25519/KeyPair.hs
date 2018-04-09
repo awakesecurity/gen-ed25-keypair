@@ -91,8 +91,8 @@ sigReader = Options.eitherReader parseSig
         Right (t :: ByteString) ->
           Bifunctor.first show $ eitherCryptoError (Ed25519.signature t)
 
-instance ParseField Ed25519.Signature where
-  parseField h n c =
+instance ParseFields Ed25519.Signature where
+  parseFields h n c =
       (Options.option sigReader $
        ( Options.metavar "Signature"
        <> foldMap  Options.short                c
@@ -101,7 +101,6 @@ instance ParseField Ed25519.Signature where
        )
       )
 
-instance ParseFields Ed25519.Signature where
 instance ParseRecord Ed25519.Signature where
   parseRecord = fmap getOnly parseRecord
 
@@ -115,8 +114,8 @@ pubkeyReader = Options.eitherReader parsePubkey
         Right (t :: ByteString) ->
           Bifunctor.first show $ eitherCryptoError (Ed25519.publicKey t)
 
-instance ParseField Ed25519.PublicKey where
-  parseField h n c =
+instance ParseFields Ed25519.PublicKey where
+  parseFields h n c =
       (Options.option pubkeyReader $
        ( Options.metavar "PublicKey"
        <> foldMap  Options.short                c
@@ -125,6 +124,5 @@ instance ParseField Ed25519.PublicKey where
        )
       )
 
-instance ParseFields Ed25519.PublicKey where
 instance ParseRecord Ed25519.PublicKey where
   parseRecord = fmap getOnly parseRecord
