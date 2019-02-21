@@ -1,5 +1,5 @@
 {-# LANGUAGE DeriveAnyClass      #-}
-{-# LANGUAGE FlexibleContexts      #-}
+{-# LANGUAGE FlexibleContexts    #-}
 {-# LANGUAGE DeriveGeneric       #-}
 {-# LANGUAGE LambdaCase          #-}
 {-# LANGUAGE OverloadedStrings   #-}
@@ -16,8 +16,7 @@ import           Data.Bifunctor              as Bifunctor
 import           Data.ByteArray
 import           Data.ByteArray.Encoding
 import           Data.ByteString             (ByteString)
-import           Data.Monoid
-import qualified           Control.Monad.Except as Except
+import qualified Control.Monad.Except        as Except
 import           Data.Text                   as Text
 import           Data.Text.Encoding          (decodeUtf8', encodeUtf8)
 import           GHC.Generics
@@ -95,9 +94,9 @@ instance ParseFields Ed25519.Signature where
   parseFields h n c =
       (Options.option sigReader $
        ( Options.metavar "Signature"
-       <> foldMap  Options.short                c
-       <> foldMap (Options.long  . Text.unpack) n
-       <> foldMap (Options.help  . Text.unpack) h
+       `mappend` foldMap  Options.short                c
+       `mappend` foldMap (Options.long  . Text.unpack) n
+       `mappend` foldMap (Options.help  . Text.unpack) h
        )
       )
 
@@ -118,9 +117,9 @@ instance ParseFields Ed25519.PublicKey where
   parseFields h n c =
       (Options.option pubkeyReader $
        ( Options.metavar "PublicKey"
-       <> foldMap  Options.short                c
-       <> foldMap (Options.long  . Text.unpack) n
-       <> foldMap (Options.help  . Text.unpack) h
+       `mappend` foldMap  Options.short                c
+       `mappend` foldMap (Options.long  . Text.unpack) n
+       `mappend` foldMap (Options.help  . Text.unpack) h
        )
       )
 
