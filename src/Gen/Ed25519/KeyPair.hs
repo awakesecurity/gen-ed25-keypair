@@ -21,7 +21,7 @@ import           Data.Text                   as Text
 import           Data.Text.Encoding          (decodeUtf8', encodeUtf8)
 import           GHC.Generics
 import qualified Options.Applicative         as Options
-import           Options.Applicative.Builder
+import           Options.Applicative.Builder (ReadM)
 import           Options.Generic
 
 -- | Base64 encode a 'ByteArray' into a 'Text'.
@@ -91,12 +91,12 @@ sigReader = Options.eitherReader parseSig
           Bifunctor.first show $ eitherCryptoError (Ed25519.signature t)
 
 instance ParseFields Ed25519.Signature where
-  parseFields h n c =
+  parseFields help long short _value =
       (Options.option sigReader $
        ( Options.metavar "Signature"
-       `mappend` foldMap  Options.short                c
-       `mappend` foldMap (Options.long  . Text.unpack) n
-       `mappend` foldMap (Options.help  . Text.unpack) h
+       `mappend` foldMap  Options.short                short
+       `mappend` foldMap (Options.long  . Text.unpack) long
+       `mappend` foldMap (Options.help  . Text.unpack) help
        )
       )
 
@@ -114,12 +114,12 @@ pubkeyReader = Options.eitherReader parsePubkey
           Bifunctor.first show $ eitherCryptoError (Ed25519.publicKey t)
 
 instance ParseFields Ed25519.PublicKey where
-  parseFields h n c =
+  parseFields help long short _value =
       (Options.option pubkeyReader $
        ( Options.metavar "PublicKey"
-       `mappend` foldMap  Options.short                c
-       `mappend` foldMap (Options.long  . Text.unpack) n
-       `mappend` foldMap (Options.help  . Text.unpack) h
+       `mappend` foldMap  Options.short                short
+       `mappend` foldMap (Options.long  . Text.unpack) long
+       `mappend` foldMap (Options.help  . Text.unpack) help
        )
       )
 
