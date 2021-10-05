@@ -1,26 +1,15 @@
-{ mkDerivation, base, bytestring, cryptonite, memory, mtl
-, optparse-applicative, optparse-generic, stdenv, system-filepath
-, tasty, tasty-hunit, tasty-quickcheck, text
-}:
-mkDerivation {
-  pname = "gen-ed25-keypair";
-  version = "1.0.0";
-  src = ./.;
-  isLibrary = true;
-  isExecutable = true;
-  libraryHaskellDepends = [
-    base bytestring cryptonite memory mtl optparse-applicative
-    optparse-generic text
-  ];
-  executableHaskellDepends = [
-    base bytestring cryptonite mtl optparse-generic system-filepath
-    text
-  ];
-  testHaskellDepends = [
-    base bytestring cryptonite memory optparse-generic tasty
-    tasty-hunit tasty-quickcheck text
-  ];
-  homepage = "https://github.com/awakenetworks/gen-ed25-keypair#readme";
-  description = "Ed25519 keypair generator, message signing and verification tools";
-  license = stdenv.lib.licenses.asl20;
-}
+let
+  rev = "9899f2b5602a6a8be6e79725d39856025861a5d0";
+
+  sha256 = "0zb05xxhy1zynpf9014a3jrv6hibs0zz855vc8x4x5hcjpx34dlc";
+
+  pkgs =
+    import
+      (builtins.fetchTarball {
+        url = "https://github.com/NixOS/nixpkgs/archive/${rev}.tar.gz";
+        inherit sha256;
+      })
+      { config = { }; };
+
+in
+pkgs.haskellPackages.callCabal2nix "gen-ed25-keypair" ./. { }
