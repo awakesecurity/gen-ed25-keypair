@@ -1,7 +1,7 @@
 let
-  rev = "9899f2b5602a6a8be6e79725d39856025861a5d0";
+  rev = "75a35fd777948666c6175c73e08d0f0bc1a7974e";
 
-  sha256 = "0zb05xxhy1zynpf9014a3jrv6hibs0zz855vc8x4x5hcjpx34dlc";
+  sha256 = "04cbj56i5qnaa93fam5k4lpz6im5bh5zl1811z78wga3iz3xcfca";
 
   pkgs =
     import
