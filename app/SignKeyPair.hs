@@ -16,10 +16,8 @@ import           Control.Monad.Trans       (lift)
 import qualified Crypto.PubKey.Ed25519     as Ed25519
 import           Data.ByteString           (ByteString)
 import qualified Data.Text.IO              as Text.IO
-import           Filesystem.Path           (FilePath)
-import           Filesystem.Path.CurrentOS (encodeString)
 import           Options.Generic
-import           Prelude                   hiding (FilePath)
+import           Prelude
 import           System.Exit
 
 import qualified Gen.Ed25519.KeyPair       as KeyPair
@@ -43,8 +41,8 @@ main = do
         KeyPair.parseKey constructor =<< Text.IO.readFile path
 
   result <- Except.runExceptT $ do
-    seckey <- lift $ readKey Ed25519.secretKey (encodeString secretKey)
-    pubkey <- lift $ readKey Ed25519.publicKey (encodeString publicKey)
+    seckey <- lift $ readKey Ed25519.secretKey secretKey
+    pubkey <- lift $ readKey Ed25519.publicKey publicKey
 
     sig <- KeyPair.encode64 (KeyPair.sign KeyPair.KeyPair{..} msg)
     lift $ Text.IO.putStrLn sig

@@ -15,10 +15,8 @@ import           Control.Monad.Trans       (lift)
 import           Crypto.Random
 import           Data.Maybe
 import qualified Data.Text.IO              as Text.IO
-import           Filesystem.Path           (FilePath)
-import           Filesystem.Path.CurrentOS (encodeString)
 import           Options.Generic
-import           Prelude                   hiding (FilePath)
+import           Prelude
 import           System.Exit
 
 import           Gen.Ed25519.KeyPair       (KeyPair (..))
@@ -39,8 +37,8 @@ main :: IO ()
 main = do
   Options{..} <- unwrapRecord "Generate a base64 encoded, Ed25519 keypair"
 
-  let seckeyPath = fromMaybe "./secret-ed25519.key" (encodeString <$> secretKey)
-      pubkeyPath = fromMaybe "./public-ed25519.key" (encodeString <$> publicKey)
+  let seckeyPath = fromMaybe "./secret-ed25519.key" secretKey
+      pubkeyPath = fromMaybe "./public-ed25519.key" publicKey
 
   -- NB: 32 is a magic constant that's not exposed by the Ed25519
   -- module and is the required key length to create a SecretKey
